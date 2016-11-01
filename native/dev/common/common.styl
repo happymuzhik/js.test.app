@@ -23,6 +23,8 @@ modal_all_screen(bg_color){
 html
 	font-size: default_font_size
 	line-height: default_font_size
+	padding: 0px
+	margin: 0px
 	*
 		box-sizing: border-box
 		color: default_font_color
@@ -30,19 +32,35 @@ html
 		line-height: default_font_size
 
 body
-	@extend html
-	padding: 0px
-	margin: 0px
+	@extend html	
 	
 button	
 	border: none
 	box-shadow: none
 	height: input_button_height
 	padding: input_button_padding
+	text-align: center
+	cursor: pointer
+	background-color: default_color
+	color: #FFF
+	~/:focus
+		outline: none
+	~/:active
+		position: relative
+		top: 1px
+		left: -1px
+	~/:hover
+		background-color: default_color - 10%
+		transition: background-color 300ms ease-in-out
+	~/.success
+		background-color: success_color
+	~/.success:hover
+		background-color: success_color - 10%
+	~/.info
+		background-color: info_color
+	~/.info:hover
+		background-color: info_color - 10%
 
-button:focus
-	outline: none
-	
 input
 	width: 100%
 	padding: input_button_padding
@@ -50,8 +68,8 @@ input
 	line-height: 11pt
 	border: 1px solid inputs_border_color
 	height: input_button_height
-input:focus
-	outline: none !important
+	~/:focus
+		outline: none !important
 
 .wrapper
 	modal_all_screen(default_bg_color)
@@ -68,6 +86,12 @@ input:focus
 		padding: 10px
 	.test-table_td-center
 		text-align: center
+
+.test-table__top-buttons
+	margin-bottom: 5px
+
+.test-table__add-button
+	width: 200px
 
 .test-form__background
 	modal_all_screen(#000)
@@ -89,25 +113,6 @@ input:focus
 .test-form__label
 	margin-bottom: 2px
 	
-.test-form__button
-	text-align: center
-	cursor: pointer
-	background-color: default_color
-	color: #FFF
+.test-form__button	
 	float: right
-	margin-left: 5px	
-	
-.test-form__button.success
-	background-color: success_color
-
-.test-form__button:hover
-	background-color: default_color - 10%
-	transition: background-color 300ms ease-in-out
-
-.test-form__button:active
-	position: relative
-	top: 1px
-	left: -1px
-
-.test-form__button.success:hover
-	background-color: success_color - 10%
+	margin-left: 5px
