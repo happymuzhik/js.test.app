@@ -1,11 +1,19 @@
 const webpack = require('webpack');
-var js_directory = './work_directory/js/';
+
+const js_table_dir = 'pages/test_table/';
+const js_table_entry = 'entry.js';
+const js_table_bundle = 'bundle.js';
+
+const js_common_dir = 'common/';
+
+const js_dev_dir = './native/dev/';
+const js_prod_dir = './native/public/js/'
 
 module.exports = {
 	// watch: true, // для автоматического сохранения, можно также указфывать при запуске вебпака - webpack --watch
-    entry: "./"+js_directory+"entry.js",
+    entry: js_dev_dir+js_table_dir+js_table_entry,
     output: {
-        filename: js_directory+"bundle.js"
+        filename: js_prod_dir+js_table_dir+js_table_bundle
     },
     module: {
         loaders: [
