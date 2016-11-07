@@ -4,6 +4,7 @@ let nodes = {
 		'container': document.getElementById('test-form'),
 		'background': document.getElementById('test-form__background'),
 		'cancel_button': document.getElementById('test-form__cancel-button'),
-	} 
+	},
+	'test_table_container': document.getElementById('test-table__container'),
 };
 module.exports = nodes;

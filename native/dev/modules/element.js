@@ -1,8 +1,10 @@
 let element = function(e,a,t,c){
 	let n = document.createElement(e);
-	n.innerText = t;
-	if (a && typeof a == 'object'){
-		for(k in a){
+	if (t && typeof t == 'string'){
+		n.innerText = t;
+	}	
+	if (a && typeof a == 'object'){		
+		for(let k in a){
 			n.setAttribute(k,a[k]);
 		};
 	}
