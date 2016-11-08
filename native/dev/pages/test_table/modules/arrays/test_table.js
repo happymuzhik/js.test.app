@@ -32,7 +32,7 @@ let table = {
 		return (Object.keys(this.elements).length == 0);
 	},
 	add_row: function(data){
-		if (this.no_elements){
+		if (this.no_elements()){
 			container.innerHTML = '';
 		}
 		let tr = get_pattern(data);
@@ -46,7 +46,7 @@ let table = {
 				let tr = this.elements[k];
 				this.elements[k].remove();
 				delete(this.elements[k]);
-				if (this.no_elements){
+				if (this.no_elements()){
 					container.innerHTML = get_no_data_pattern();
 				}
 				return tr;
@@ -60,7 +60,7 @@ let table = {
 			container.appendChild(tr);
 			this.elements[data.id] = tr;
 		};
-		if (this.no_elements){
+		if (this.no_elements()){
 			container.innerHTML = get_no_data_pattern();
 		}
 		return this.elements;

@@ -66,13 +66,13 @@
 
 	var _nodes2 = _interopRequireDefault(_nodes);
 
-	var _test_form = __webpack_require__(3);
-
-	var _test_form2 = _interopRequireDefault(_test_form);
-
 	var _test_table = __webpack_require__(4);
 
 	var _test_table2 = _interopRequireDefault(_test_table);
+
+	var _test_form = __webpack_require__(3);
+
+	var _test_form2 = _interopRequireDefault(_test_form);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92,12 +92,24 @@
 
 	'use strict';
 
+	var _form_data;
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	var nodes = {
 		'add_new_row_button': document.getElementById('test-table__add-button'),
 		'test_form': {
 			'container': document.getElementById('test-form'),
 			'background': document.getElementById('test-form__background'),
-			'cancel_button': document.getElementById('test-form__cancel-button')
+			'cancel_button': document.getElementById('test-form__cancel-button'),
+			'save_button': document.getElementById('test-form__save-button'),
+			'form_data': (_form_data = {
+				'id': document.getElementById('test-form__body'),
+				'name': document.getElementById('test-form__input-name'),
+				'surname': document.getElementById('test-form__input-surname'),
+				'email': document.getElementById('test-form__input-email'),
+				'first_number': document.getElementById('test-form__input-first-number')
+			}, _defineProperty(_form_data, 'first_number', document.getElementById('test-form__input-second-number')), _defineProperty(_form_data, 'summ', document.getElementById('test-form__input-summ')), _form_data)
 		},
 		'test_table_container': document.getElementById('test-table__container')
 	};
@@ -113,7 +125,13 @@
 
 	var _nodes2 = _interopRequireDefault(_nodes);
 
+	var _test_table = __webpack_require__(4);
+
+	var _test_table2 = _interopRequireDefault(_test_table);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var test_form = {
 		show: function show() {
@@ -121,6 +139,17 @@
 		},
 		hide: function hide() {
 			_nodes2.default.test_form.container.classList.add('hidden');
+		},
+		get_data: function get_data() {
+			var _ref;
+
+			return _ref = {
+				'id': _nodes2.default.test_form.form_data.id.getAttribute('data-id') || null,
+				'name': _nodes2.default.test_form.form_data.name.value,
+				'surname': _nodes2.default.test_form.form_data.surname.value,
+				'email': _nodes2.default.test_form.form_data.email.value,
+				'first_number': _nodes2.default.test_form.form_data.first_number.value
+			}, _defineProperty(_ref, 'first_number', _nodes2.default.test_form.form_data.first_number.value), _defineProperty(_ref, 'summ', _nodes2.default.test_form.form_data.summ.value), _ref;
 		}
 	};
 
@@ -129,6 +158,13 @@
 	});
 	_nodes2.default.test_form.cancel_button.addEventListener('click', function () {
 		test_form.hide();
+	});
+	_nodes2.default.test_form.save_button.addEventListener('click', function () {
+		var data = test_form.get_data();
+		if (!data.id) {
+			data.id = parseInt(Math.random() * 10000);
+		}
+		_test_table2.default.add_row(data);
 	});
 
 	module.exports = test_form;
@@ -174,7 +210,7 @@
 			return Object.keys(this.elements).length == 0;
 		},
 		add_row: function add_row(data) {
-			if (this.no_elements) {
+			if (this.no_elements()) {
 				container.innerHTML = '';
 			}
 			var tr = get_pattern(data);
@@ -188,7 +224,7 @@
 					var tr = this.elements[k];
 					this.elements[k].remove();
 					delete this.elements[k];
-					if (this.no_elements) {
+					if (this.no_elements()) {
 						container.innerHTML = get_no_data_pattern();
 					}
 					return tr;
@@ -202,7 +238,7 @@
 				container.appendChild(tr);
 				this.elements[data.id] = tr;
 			};
-			if (this.no_elements) {
+			if (this.no_elements()) {
 				container.innerHTML = get_no_data_pattern();
 			}
 			return this.elements;
